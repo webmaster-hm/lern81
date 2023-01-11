@@ -32,7 +32,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": "^7.2|^8.0",
+        "php": "^7.2|^8.0|^8.1",
         "illuminate/support": "^6.0|^7.0|^8.0",
         "monolog/monolog": "^2.0",
         "webmaster-hm/laravel-notify81": "^1.0.0"
