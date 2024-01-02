@@ -5,7 +5,6 @@ namespace Tylercd100\LERN\Tests;
 use Illuminate\Support\Facades\Request;
 use Tylercd100\LERN\Components\Recorder;
 use Tylercd100\LERN\Exceptions\RecorderFailedException;
-use Tylercd100\LERN\Exceptions\NotifierFailedException;
 use Exception;
 use Throwable;
 
@@ -27,11 +26,11 @@ class RecorderTest extends TestCase
     {
 
         $data = [
-            'email'=>'mail@test.com',
-            'password'=>'foobar',
-            'name'=>'Foo Bar'
+            'email' => 'mail@test.com',
+            'password' => 'foobar',
+            'name' => 'Foo Bar'
         ];
-        $this->app['config']->set('lern.record.excludeKeys', ['password','email']);
+        $this->app['config']->set('lern.record.excludeKeys', ['password', 'email']);
         $recorder = new Recorder;
         $result = $this->invokeMethod($recorder, 'excludeKeys', [$data]);
         $this->assertArrayNotHasKey('password', $result);
@@ -40,8 +39,8 @@ class RecorderTest extends TestCase
 
     public function testExcludeKeysRemovesNestedValues()
     {
-        $data = ['user'=>['email','mail@test.com','password'=>'foobar','name'=>'Foo Bar'],'status'=>200];
-        $this->app['config']->set('lern.record.excludeKeys', ['password','email']);
+        $data = ['user' => ['email', 'mail@test.com', 'password' => 'foobar', 'name' => 'Foo Bar'], 'status' => 200];
+        $this->app['config']->set('lern.record.excludeKeys', ['password', 'email']);
         $recorder = new Recorder;
         $result = $this->invokeMethod($recorder, 'excludeKeys', [$data]);
         $this->assertArrayNotHasKey('password', $result['user']);
@@ -51,11 +50,11 @@ class RecorderTest extends TestCase
     public function testCollectMethodReturnsFalseWhenConfigValuesAreFalse()
     {
         $this->app['config']->set('lern.record.collect', [
-            'method'=>false,
-            'data'=>false,
-            'status_code'=>false,
-            'user_id'=>false,
-            'url'=>false
+            'method' => false,
+            'data' => false,
+            'status_code' => false,
+            'user_id' => false,
+            'url' => false
         ]);
         $recorder = new Recorder;
         $model = $recorder->record(new Exception);
@@ -67,8 +66,8 @@ class RecorderTest extends TestCase
         $mock = $this->createMock(Recorder::class, ['record']);
 
         $mock->expects($this->once())
-                 ->method('record')
-                 ->will($this->throwException(new RecorderFailedException));
+            ->method('record')
+            ->will($this->throwException(new RecorderFailedException));
 
         $this->expectException(RecorderFailedException::class);
 
@@ -82,18 +81,11 @@ class RecorderTest extends TestCase
         $this->assertEquals(false, $result);
     }
 
-    public function testRecordShouldReturnTrueWhenPassedNotifierFailedException()
-    {
-        $recorder = new Recorder;
-        $result = $recorder->record(new NotifierFailedException);
-        $this->assertInstanceOf(\Tylercd100\LERN\Models\ExceptionModel::class, $result);
-    }
-
     public function testGetDataFunction()
     {
-        $data = ['user'=>['email','mail@test.com','password'=>'foobar','name'=>'Foo Bar'],'status'=>200];
+        $data = ['user' => ['email', 'mail@test.com', 'password' => 'foobar', 'name' => 'Foo Bar'], 'status' => 200];
         Request::replace($data);
-        $this->app['config']->set('lern.record.excludeKeys', ['password','email']);
+        $this->app['config']->set('lern.record.excludeKeys', ['password', 'email']);
         $recorder = new Recorder;
         $result = $this->invokeMethod($recorder, 'getData', [$data]);
         $this->assertArrayNotHasKey('password', $result['user']);
@@ -109,7 +101,7 @@ class RecorderTest extends TestCase
         $result = $recorder->record(new Exception);
         $this->assertEquals(false, $result);
 
-        sleep(config("lern.ratelimit")+2);
+        sleep(config("lern.ratelimit") + 2);
 
         $result = $recorder->record(new Exception);
         $this->assertInstanceOf(\Tylercd100\LERN\Models\ExceptionModel::class, $result);

@@ -1,3 +1,7 @@
 {
-    "jira-plugin.workingProject": ""
+    "jira-plugin.workingProject": "",
+    "yaml.schemas": {
+        "file:///home/jgevenus/.vscode/extensions/atlassian.atlascode-3.0.9/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml",
+        "https://www.artillery.io/schema.json": []
+    }
 }

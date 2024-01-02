@@ -46,7 +46,6 @@ class TestCase extends Orchestra
 
     protected function migrateReset()
     {
-
     }
 
     /**
@@ -89,97 +88,27 @@ class TestCase extends Orchestra
         ]);
 
         $app['config']->set('lern.record', array_merge($app['config']->get('lern.record'), [
-            'table'=>'vendor_tylercd100_lern_exceptions',
-            'collect'=>[
-                'method'=>true,//When true it will collect GET, POST, DELETE, PUT, etc...
-                'data'=>true,//When true it will collect Input data
-                'status_code'=>true,
-                'user_id'=>true,
-                'url'=>true,
+            'table' => 'vendor_tylercd100_lern_exceptions',
+            'collect' => [
+                'method' => true, //When true it will collect GET, POST, DELETE, PUT, etc...
+                'data' => true, //When true it will collect Input data
+                'status_code' => true,
+                'user_id' => true,
+                'url' => true,
             ],
-            'excludeKeys'=>[
+            'excludeKeys' => [
                 'password'
             ]
         ]));
 
-        $app['config']->set('lern.notify', array_merge($app['config']->get('lern.notify'), [
-            'channel'=>\Tylercd100\LERN::class,
-            'includeExceptionStackTrace'=>true,
-            'drivers'=>['pushover'],
-            'mail'=>[
-                'to'=>'test@mailinator.com',
-                'from'=>'from@mailinator.com',
-                'smtp'=>true,
-            ],
-            'pushover'=>[
-                'token' => 'token',
-                'users'  => 'user',
-                'sound'=>'siren',
-            ],
-            'slack'=>[
-                'username'=>'username',
-                'icon'=>'icon',
-                'channel'=>'channel',
-            ]
-        ]));
 
-
-        $app['config']->set('lern.notify.view', 'test');
-
-        $app['config']->set('lern.notify.slack', [
-            'token' => 'token',
-            'username' => 'username',
-            'icon' => 'icon',
-            'channel' => 'channel',
-        ]);
-
-        $app['config']->set('lern.notify.fleephook', [
-            'token' => 'token',
-        ]);
-
-        $app['config']->set('lern.notify.mail', [
-            'to' => 'to@address.com',
-            'from' => 'from@address.com',
-            'smtp' => true,
-        ]);
-
-        $app['config']->set('lern.notify.mailgun', [
-            'to'=>'to@address.com',
-            'from'=>'from@address.com',
-            'token' => 'token',
-            'domain' => 'test.com',
-        ]);
-
-        $app['config']->set('lern.notify.pushover', [
-            'token' => 'token',
-            'users'  => 'user',
-            'sound' => 'siren',
-        ]);
-
-        $app['config']->set('lern.notify.plivo', [
-            'token'   => 'token',
-            'auth_id' => 'auth_id',
-            'to'      => '+15555555555',
-            'from'    => '+16666666666',
-        ]);
-
-        $app['config']->set('lern.notify.twilio', [
-            'secret'  => 'secret',
-            'sid'     => 'sid',
-            'to'      => '+15555555555',
-            'from'    => '+16666666666',
-        ]);
-
-        $app['config']->set('lern.notify.flowdock', [
-            'token' => 'token',
-        ]);
 
 
         // Copy stuff
         $root = __DIR__ . "/../vendor/orchestra/testbench/fixture/resources/views";
         if (!is_dir($root)) {
             $root = __DIR__ . "/../vendor/orchestra/testbench-core/laravel/resources/views";
-            if(!is_dir($root)) {
+            if (!is_dir($root)) {
                 throw new Exception("Could not find laravel inside of testbench. Is testbench installed?");
             }
         }
@@ -212,5 +141,4 @@ class TestCase extends Orchestra
 
         return $method->invokeArgs($object, $parameters);
     }
-
 }
