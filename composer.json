@@ -34,8 +34,8 @@
     "require": {
         "php": "^7.2|^8.0|^8.1",
         "laravel/framework": "^10.0",
-        "monolog/monolog": "^2.0",
-        "webmaster-hm/laravel-notify81": "^1.0.3"
+        "monolog/monolog": "^3.0",
+        "webmaster-hm/laravel-notify81": "1.0.4"
     },
     "require-dev": {
         "mockery/mockery": "^1.6.7",
